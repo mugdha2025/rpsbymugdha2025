@@ -1,113 +1,190 @@
-<script>
-    console.log("Rock Paper Scissor by Mugdha 2025"); // my name
-    
-    function getHumanChoice(huCh) { //setting the input (from human) values to numbers
-        if (huCh === "Rock") {
-            return huChValue = 1;
-        }
-        else if (huCh === "Paper") {
-            return huChValue = 2;
-        }
-        else if (huCh === "Scissor") {
-            return huChValue = 3;
-        }
-        else {
-            return huChValue = "N?A";
-        }
-
-        console.log(huChValue)
-    }
-
-    
-
-    function getComputerChoice(comCh) { 
-        let computerAnswers = ["Rock", "Paper", "Scissor"] //putting the outputs in one array
-        const randomeChoice = computerAnswers[Math.floor(Math.random() * computerAnswers.length)]; //getting random output from computer
-        
-        if (randomeChoice === "Rock") { //setting the values to numbers
-            return rcValue = 1
-        }
-        else if (randomeChoice === "Paper") {
-            return rcValue = 2
-        }
-        else if (randomeChoice === "Scissor") {
-            return rcValue = 3
-        }
-        else {
-            return rcValue = "N?A";
-        }
-        console.log(rcValue)
-    }
-
-    function transformhooman(hooman) { //setting numbers to value so I can use them later for human outputs
-
-        if (hooman === 1) {
-            return hoomanWord = "Rock"
-        }
-        else if (hooman === 2) {
-            return hoomanWord = "Paper"
-        }
-        else if (hooman === 3) {
-            return hoomanWord = "Scissor"
-        }
-        else {
-            return hoomanWord = "nada"
-        }
-
-    }
-
-    function transformComp(compooter) { //same thing but for computer outputs
-
-        if (compooter === 1) {
-            return compooterWord = "Rock"
-        }
-        else if (compooter === 2) {
-            return compooterWord = "Paper"
-        }
-        else if (compooter === 3) {
-            return compooterWord = "Scissor"
-        }
-        else {
-            return compooterWord = "nada"
-        }
-
-    }
-
-
-    function playRound(humanChoice, computerChoice) { //main function where it decides who won
-
-        if (humanChoice === computerChoice) { //if human and computer have the same output it will say draw
-            console.log("Draw");
-        } else if (
-            (humanChoice === 1 && computerChoice === 3) || // when human choice is rock and computer choice is scissor -> human win
-            (humanChoice === 2 && computerChoice === 1) || // when human choice is paper and computer choice is rock -> human win
-            (humanChoice === 3 && computerChoice === 2)) { // when human choice is scissor and computer choice is paper -> human win
-
-            let humanChoiceWord = transformhooman(humanChoice); //transforming numbers into values for human output
-            let computerChoiceWord = transformComp(computerChoice); //transforming numbers into values for computer output
-
-            console.log(`Human won, Human said: ${humanChoiceWord}, Computer said: ${computerChoiceWord}`); //printing human won and human and computer's their shot
-        } else if (
-            (humanChoice === 3 && computerChoice === 1) || //same thing as the last on but inversed but for the computer
-            (humanChoice === 1 && computerChoice === 2) ||
-            (humanChoice === 2 && computerChoice === 3)) 
-        
-        {
-            let humanChoiceWord = transformhooman(humanChoice);
-            let computerChoiceWord = transformComp(computerChoice);
-
-            console.log(`Computer won, Human said: ${humanChoiceWord}, Computer said: ${computerChoiceWord}`); //says if computer won and human and computer's shot
-        } else{
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+    <h1>Rock Paper Scissors - Mugdha </h1>
+    <div class="options">
+        <div class="optionRock">
+            <button id="rock">Rock</button>
+            <img class="rockimage" src="../images/rocks.png">
             
-            console.log("not correct input") // if the human input is any other than rock paper and sister, it will print not correct input
-        }}
+        </div>
+
+        <div class="optionPaper">
+            <button id="paper">Paper</button>
+            <img class="paperimage" src="../images/papers.webp">
+
+        </div>
+
+
+        <div class="optionScissor">
+            <button id="scissor">Scissor</button>
+            <img class="scissorimage" src="../images/scissors.webp">
+
+        </div>
+
+        <div id="result"></div>
+    </div>
+    
+
+    <style>
+        #rock{
+            height: auto;
+            width: 100px;
+            margin-right: 25px;
+            margin-bottom: 10px;
+        }
+        .rockimage{
+            height: auto;
+            width: 100px;
+        }
+
+
+        #paper{
+            height: auto;
+            width: 100px;
+            margin-right: 25px;
+            margin-bottom: 10px;
+        }
+        .paperimage{
+            height: auto;
+            width: 100px;
+        }
+
+
+        #scissor{
+            height: 100px;
+            width: 100px;
+            margin-right: 25px;
+            margin-bottom: 10px;
+        }
+        .scissorimage{
+            height: auto;
+            width: 100px;
+        }
+
+        .optionRock{
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+        }
+
+        .optionPaper{
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+        }
+
+        .optionScissor{
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+        }
 
     
-        let answer = prompt("human gimme your command: ") //asking for the human input
-        let answerr = answer[0].toUpperCase() + answer.slice(1); // making the first letter of human input uppercase and keeping the whole world
 
-        const humanSelection = getHumanChoice(answerr); // using the getHumanChoice function to make the human inputs to numbers
-        const computerSelection = getComputerChoice(); // using the getComputerChoice function to make the computer random outputs to numbers
+        
+    </style>
 
-        playRound(humanSelection, computerSelection) //using the playRound fucntion to figure who won and their commands
-</script>
+    <script>
+        document.getElementById('rock').addEventListener('click', function() {
+            playRound(1, getComputerChoice());
+        });
+
+        document.getElementById('paper').addEventListener('click', function() {
+            playRound(2, getComputerChoice());
+        });
+
+        document.getElementById('scissor').addEventListener('click', function() {
+            playRound(3, getComputerChoice());
+        });
+
+        function transformhooman(hooman) {
+
+            if (hooman === 1) {
+                return hoomanWord = "Rock"
+            }
+            else if (hooman === 2) {
+                return hoomanWord = "Paper"
+            }
+            else if (hooman === 3) {
+                return hoomanWord = "Scissor"
+            }
+            else {
+                return hoomanWord = "nada"
+            }
+
+        }
+
+        function transformComp(compooter) { 
+
+            if (compooter === 1) {
+                return compooterWord = "Rock"
+            }
+            else if (compooter === 2) {
+                return compooterWord = "Paper"
+            }
+            else if (compooter === 3) {
+                return compooterWord = "Scissor"
+            }
+            else {
+                return compooterWord = "nada"
+            }
+
+        }
+        
+        function getComputerChoice() {
+            let computerAnswers = ["Rock", "Paper", "Scissor"];
+            const randomChoice = computerAnswers[Math.floor(Math.random() * computerAnswers.length)];
+
+            if (randomChoice === "Rock") {
+                return 1;
+            } else if (randomChoice === "Paper") {
+                return 2;
+            } else if (randomChoice === "Scissor") {
+                return 3;
+            } else {
+                return "N/A";
+            }
+        }
+        
+
+        function playRound(humanChoice, computerChoice) {
+            const resultDiv = document.getElementById('result');
+            let resultMessage = '';
+
+            if (humanChoice === computerChoice) {
+                commandHuman = transformhooman(humanChoice)
+                commandComp = transformComp(computerChoice)
+                resultMessage = `Draw, Your choice: ${commandHuman}, Computer choice: ${commandComp}`;
+            } else if (
+                (humanChoice === 1 && computerChoice === 3) ||
+                (humanChoice === 2 && computerChoice === 1) ||
+                (humanChoice === 3 && computerChoice === 2)
+            ) {
+                commandHuman = transformhooman(humanChoice)
+                commandComp = transformComp(computerChoice)
+                resultMessage = `You won, Your choice: ${commandHuman}, Computer choice: ${commandComp}`;
+            } else if (
+                (humanChoice === 3 && computerChoice === 1) ||
+                (humanChoice === 1 && computerChoice === 2) ||
+                (humanChoice === 2 && computerChoice === 3)
+            ) {
+                commandHuman = transformhooman(humanChoice)
+                commandComp = transformComp(computerChoice)
+                resultMessage = `Computer won, Computer choice: ${commandComp}, Your choice: ${commandHuman}`;
+            } else {
+                resultMessage = "Invalid input";
+            }
+
+            resultDiv.textContent = resultMessage;
+        }
+
+    </script>
+
+</body>
+</html>
