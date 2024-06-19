@@ -28,6 +28,7 @@
         </div>
 
         <div id="result"></div>
+        <div id="score"> Human: 0 | Computer: 0 </div>
     </div>
     
 
@@ -98,6 +99,10 @@
     </style>
 
     <script>
+
+        let humanScore = 0;
+        let computerScore = 0;
+        
         document.getElementById('rock').addEventListener('click', function() {
             playRound(1, getComputerChoice());
         });
@@ -162,36 +167,44 @@
 
         function playRound(humanChoice, computerChoice) {
             const resultDiv = document.getElementById('result');
+            const scoreDiv = document.getElementById('score');
             let resultMessage = '';
 
             if (humanChoice === computerChoice) {
-                commandHuman = transformhooman(humanChoice)
-                commandComp = transformComp(computerChoice)
                 resultMessage = `Draw, Your choice: ${commandHuman}, Computer choice: ${commandComp}`;
             } else if (
                 (humanChoice === 1 && computerChoice === 3) ||
                 (humanChoice === 2 && computerChoice === 1) ||
                 (humanChoice === 3 && computerChoice === 2)
             ) {
-                commandHuman = transformhooman(humanChoice)
-                commandComp = transformComp(computerChoice)
-                resultMessage = `You won, Your choice: ${commandHuman}, Computer choice: ${commandComp}`;
-            } else if (
-                (humanChoice === 3 && computerChoice === 1) ||
-                (humanChoice === 1 && computerChoice === 2) ||
-                (humanChoice === 2 && computerChoice === 3)
-            ) {
-                commandHuman = transformhooman(humanChoice)
-                commandComp = transformComp(computerChoice)
-                resultMessage = `Computer won, Computer choice: ${commandComp}, Your choice: ${commandHuman}`;
+            
+
+                resultMessage = `You won, Your choice: ${transformhooman(humanChoice)}, Computer choice: ${transformComp(computerChoice)}`;
+                    humanScore++;
             } else {
-                resultMessage = "Invalid input";
-            }
+                resultMessage = `Computer won, Computer choice: ${transformComp(computerChoice)}, Your choice: ${transformhooman(humanChoice)}`;
+                computerScore++;}
 
             resultDiv.textContent = resultMessage;
+            scoreDiv.textContent = `Human: ${humanScore} | Computer: ${computerScore}`;
+
+            if (humanScore === 5 || computerScore === 5){
+                const winner = humanScore == 5 ? 'Human' : 'Computer';
+                alert(`${winner} wins the game`);
+                resetGame();
+            }
+
+            function resetGame(){
+                humanScore = 0;
+                computerScore = 0;
+                document.getElementById('score').textContent = `Human: 0 | Computer: 0`;
+                document.getElementById('result').textContent = '';
+            }
         }
 
     </script>
 
 </body>
 </html>
+
+
